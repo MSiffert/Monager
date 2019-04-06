@@ -1,10 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController } from '@ionic/angular';
 import { Components } from '@ionic/core';
-import { Entry, Category } from 'src/app/models/entry.model';
+import { Entry } from 'src/app/models/entry.model';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+
 import { AppState } from 'src/app/app.state';
+import * as EntriesActions from './../../../store/actions/entries.actions';
+import { Category } from 'src/app/models/category.model';
 
 @Component({
   selector: 'app-create-entry',
@@ -25,13 +28,22 @@ export class CreateEntryComponent implements OnInit {
 
   ngOnInit() {}
 
-  public onCancel = () => this.modal.dismiss('cancel');
-  public onCreate() {
-    const entry = new Entry();
-    entry.Timestamp = <Date>this.formGroup.controls['date'].value;
-    entry.Category = <Category>this.formGroup.controls['category'].value;
-    entry.Price = <number>this.formGroup.controls['price'].value;
+  public onCancel() {
+    this.modal.dismiss('cancel');
+  }
 
-    console.log(entry);
+  public onCreate() {
+    const entry = this.createEntryFromCurrentFormValues();
+    this.store.dispatch(new EntriesActions.Create(entry));
+  }
+
+  private createEntryFromCurrentFormValues(): Entry {
+    const entry = new Entry();
+    entry.timestamp = <Date>this.formGroup.controls['date'].value;
+    entry.category = <Category>this.formGroup.controls['category'].value;
+    entry.price = <number>this.formGroup.controls['price'].value;
+    entry.userId = 1;
+
+    return entry;
   }
 }

@@ -10,7 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 // Store
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { FetchEffect } from './store/effects/entries.effects';
+import { FetchEffect, CreateEffect } from './store/effects/entries.effects';
 import { reducers } from './app.state';
 
 // Providers
@@ -30,7 +30,7 @@ import { AppRoutingModule } from './app-routing.module';
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
     EffectsModule.forFeature([
-      FetchEffect
+      FetchEffect, CreateEffect
     ]),
   ],
   providers: [

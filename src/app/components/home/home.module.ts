@@ -6,10 +6,12 @@ import { RouterModule } from '@angular/router';
 
 import { HomePage } from './home.page';
 import { CreateEntryComponent } from './create-entry/create-entry.component';
+import { UpdateEntryComponent } from './update-entry/update-entry.component';
 
 @NgModule({
   entryComponents: [
-    CreateEntryComponent
+    CreateEntryComponent,
+    UpdateEntryComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +27,8 @@ import { CreateEntryComponent } from './create-entry/create-entry.component';
   ],
   declarations: [
     HomePage,
-    CreateEntryComponent
+    CreateEntryComponent,
+    UpdateEntryComponent
   ]
 })
 export class HomePageModule {}

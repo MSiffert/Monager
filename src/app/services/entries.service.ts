@@ -13,17 +13,19 @@ export class EntriesSerivce {
   }
 
   public createEntry(entry: Entry): Observable<Entry> {
-    const url = 'https://localhost:5001/api/mostviewedclips/next';
-    return this.httpClient.post<Entry>(url, {});
+    console.log('hello');
+    console.log(entry);
+    const url = 'https://localhost:5001/api/entries';
+    return this.httpClient.post<Entry>(url, entry);
   }
 
   public updateEntry(entry: Entry): Observable<Entry> {
-    const url = 'https://localhost:5001/api/mostviewedclips/next';
+    const url = 'https://localhost:5001/api/entries';
     return this.httpClient.put<Entry>(url, {});
   }
 
   public deleteEntry(id: number) {
-    const url = 'https://localhost:5001/api/mostviewedclips/next';
+    const url = 'https://localhost:5001/api/entries';
     return this.httpClient.delete(url);
   }
 }

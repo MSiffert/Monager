@@ -1,4 +1,4 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { EntriesState } from '../../models/entries.state';
+import { EntriesState } from '../entries.state';
 
 export const getEntriesState = createFeatureSelector<EntriesState>('entriesState');

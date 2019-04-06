@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { ModalController } from '@ionic/angular';
 import { CreateEntryComponent } from './create-entry/create-entry.component';
+import { Months } from 'src/app/models/months.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-home',
@@ -17,12 +19,28 @@ import { CreateEntryComponent } from './create-entry/create-entry.component';
 export class HomePage implements OnInit {
 
   public entries: Observable<Entry[]>;
+  public expenditureMarco: Observable<string>;
+  public expenditureChi: Observable<string>;
+  public currentMonth: string;
 
   constructor(private store: Store<AppState>, private modalController: ModalController) {
+    this.currentMonth = Months[moment().month()];
   }
 
   ngOnInit(): void {
     this.entries = this.store.select(getEntriesState).pipe(map(result => result.entries));
+
+    this.expenditureMarco = this.store.select(getEntriesState).pipe(map(result => {
+      let sum = 0;
+      result.entries.filter(e => e.userId === 1).forEach(e => sum += e.price);
+      return (Math.ceil(sum * 20 - 0.5) / 20).toFixed(2);
+    }));
+
+    this.expenditureChi = this.store.select(getEntriesState).pipe(map(result => {
+      let sum = 0;
+      result.entries.filter(e => e.userId === 2).forEach(e => sum += e.price);
+      return (Math.ceil(sum * 20 - 0.5) / 20).toFixed(2);
+    }));
   }
 
   async presentModal() {
@@ -33,11 +51,32 @@ export class HomePage implements OnInit {
   }
 
   public doRefresh(event) {
-    console.log('Begin async operation');
-
     setTimeout(() => {
-      console.log('Async operation has ended');
       event.target.complete();
     }, 2000);
+  }
+
+  public getDateInSwissFormat(date: Date): string {
+    return moment(date).format('MM.DD.YYYY');
+  }
+
+  public getCategoryInGerman(index: number) {
+    if (index === 1) {
+      return 'Benzin';
+    }
+
+    if (index === 2) {
+      return 'Essen';
+    }
+  }
+
+  public getCategoryIconName(index: number) {
+    if (index === 1) {
+      return 'battery-charging';
+    }
+
+    if (index === 2) {
+      return 'pizza';
+    }
   }
 }

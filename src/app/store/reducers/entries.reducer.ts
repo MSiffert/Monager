@@ -1,5 +1,5 @@
 import * as Action from '../actions/entries.actions';
-import { initialEntriesState, EntriesState } from 'src/app/models/entries.state';
+import { initialEntriesState, EntriesState } from 'src/app/store/entries.state';
 
 export function entriesReducer(state: EntriesState = initialEntriesState, action: Action.Actions) {
   switch (action.type) {
@@ -19,10 +19,12 @@ export function entriesReducer(state: EntriesState = initialEntriesState, action
       return { ...state, isLoading: true };
 
     case Action.CREATE_COMPLETED:
-      return { ...state, isLoading: true };
+      const newState = { ...state, isLoading: false };
+      newState.entries.push(action.payload);
+      return newState;
 
     case Action.CREATE_FAILED:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: false };
 
     // UPDATE
     case Action.UPDATE:

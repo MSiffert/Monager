@@ -1,12 +1,9 @@
-export class Entry {
-  Id: number;
-  Timestamp: Date;
-  Price: number;
-  Category: Category;
-  UserId: number;
-}
+import { Category } from './category.model';
 
-export enum Category {
-  fuel,
-  food
+export class Entry {
+  id: number;
+  timestamp: Date;
+  price: number;
+  category: Category;
+  userId: number;
 }

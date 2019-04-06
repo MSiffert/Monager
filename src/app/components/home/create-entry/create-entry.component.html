@@ -20,7 +20,7 @@
     
     <ion-item>
       <ion-label>Kategorie</ion-label>
-      <ion-select placeholder="Select One" formControlName="category" required>
+      <ion-select formControlName="category" required>
         <ion-select-option value="fuel">Benzin</ion-select-option>
         <ion-select-option value="food">Essen</ion-select-option>
       </ion-select>
@@ -28,7 +28,7 @@
     
     <ion-item>
       <ion-label>Preis</ion-label>
-      <ion-input type="number" formControlName="price" text-right required></ion-input>
+      <ion-input placeholder="0.00" type="number" formControlName="price" text-right required></ion-input>
     </ion-item>
       
     <ion-button submit expand="block" (click)="onCreate()" [disabled]="!formGroup.valid">Eintrag erstellen</ion-button>

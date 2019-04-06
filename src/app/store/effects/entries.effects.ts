@@ -21,3 +21,19 @@ export class FetchEffect {
         })
     );
 }
+
+@Injectable()
+export class CreateEffect {
+    constructor(private entriesService: EntriesSerivce, private actions$: Actions) { }
+
+    @Effect()
+    load = this.actions$.pipe(ofType<Action.Create>(Action.CREATE),
+        map(action => action.payload),
+        switchMap(action => {
+            return from(this.entriesService.createEntry(action).pipe(
+                map(apiResult => new Action.CreateCompleted(apiResult)),
+                catchError(error => of(new Action.CreateFailed(error)))
+            ));
+        })
+    );
+}

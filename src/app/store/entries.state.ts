@@ -1,4 +1,4 @@
-import { Entry } from './entry.model';
+import { Entry } from '../models/entry.model';
 
 export class EntriesState {
     public entries: Entry[];
