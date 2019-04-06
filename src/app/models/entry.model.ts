@@ -7,5 +7,6 @@ export class Entry {
 }
 
 export enum Category {
-
+  fuel,
+  food
 }

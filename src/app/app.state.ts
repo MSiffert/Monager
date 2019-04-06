@@ -1,11 +1,11 @@
 import { ActionReducerMap } from '@ngrx/store';
-import { Entry } from './models/entry.model';
 import { entriesReducer } from './store/reducers/entries.reducer';
+import { EntriesState } from './models/entries.state';
 
 export interface AppState {
-  readonly entries: Entry[];
+  readonly entriesState: EntriesState;
 }
 
 export const reducers: ActionReducerMap<AppState> = {
-  entries: entriesReducer
+  entriesState: entriesReducer
 };

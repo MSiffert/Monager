@@ -1,5 +1,7 @@
 {
   "name": "Monager.Frontend",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" (click)="onCancel()">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+    <ion-title>
+      Neuer Eintrag
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <form [formGroup]="formGroup">
+
+    <ion-item>
+      <ion-label>Datum</ion-label>
+      <ion-datetime display-format="MM.DD.YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Kategorie</ion-label>
+      <ion-select placeholder="Select One" formControlName="category" required>
+        <ion-select-option value="fuel">Benzin</ion-select-option>
+        <ion-select-option value="food">Essen</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Preis</ion-label>
+      <ion-input type="number" formControlName="price" text-right required></ion-input>
+    </ion-item>
+      
+    <ion-button submit expand="block" (click)="onCreate()" [disabled]="!formGroup.valid">Eintrag erstellen</ion-button>
+
+  </form>
+
+</ion-content>

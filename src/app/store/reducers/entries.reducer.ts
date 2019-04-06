@@ -1,7 +1,7 @@
-import { Entry } from './../../models/entry.model';
 import * as Action from '../actions/entries.actions';
+import { initialEntriesState, EntriesState } from 'src/app/models/entries.state';
 
-export function entriesReducer(state: Entry[] = [], action: Action.Actions) {
+export function entriesReducer(state: EntriesState = initialEntriesState, action: Action.Actions) {
   switch (action.type) {
 
     // GET
@@ -9,10 +9,10 @@ export function entriesReducer(state: Entry[] = [], action: Action.Actions) {
       return { ...state, isLoading: true };
 
     case Action.FETCH_COMPLETED:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: false, isLoaded: false, entries: action.payload };
 
     case Action.FETCH_FAILED:
-      return { ...state, isLoading: true };
+      return { ...state, isLoading: false, isLoaded: false };
 
     // CREATE
     case Action.CREATE:
