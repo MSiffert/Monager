@@ -44,7 +44,7 @@
   </ion-card>
 
   <ion-grid>
-    <ion-row *ngFor="let entry of (entries | async)">
+    <ion-row *ngFor="let entry of (entries | async)" (click)="presentUpdateModal(entry)">
       <ion-col size="1">
         <ion-icon [name]="getCategoryIconName(entry.category)"></ion-icon>
       </ion-col>
@@ -60,7 +60,7 @@
     </ion-row>
   </ion-grid>
 
-  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="presentModal()">
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed" (click)="presentCreateModal()">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>

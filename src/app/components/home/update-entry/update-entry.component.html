@@ -1,3 +1,40 @@
-<p>
-  update-entry works!
-</p>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="end" (click)="onCancel()">
+      <ion-icon name="close"></ion-icon>
+    </ion-buttons>
+    <ion-title>
+      Eintrag bearbeiten
+    </ion-title>
+  </ion-toolbar>
+</ion-header>
+  
+<ion-content>
+
+  <form [formGroup]="formGroup">
+
+    <ion-item>
+      <ion-label>Datum</ion-label>
+      <ion-datetime [value]="entryToUpdate.timestamp" display-format="MM.DD.YYYY" formControlName="date"></ion-datetime>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Kategorie</ion-label>
+      <ion-select [value]="entryToUpdate.category" formControlName="category" required>
+        <ion-select-option value="fuel">Benzin</ion-select-option>
+        <ion-select-option value="food">Essen</ion-select-option>
+      </ion-select>
+    </ion-item>
+    
+    <ion-item>
+      <ion-label>Preis</ion-label>
+      <ion-input [value]="entryToUpdate.price" placeholder="0.00" type="number" formControlName="price" text-right required></ion-input>
+    </ion-item>
+      
+    <ion-button submit expand="block" (click)="onUpdate()" [disabled]="!formGroup.valid" position="bottom">Eintrag aktualisieren</ion-button>
+
+  </form>
+
+  <ion-button submit expand="block" color="danger" (click)="onDelete()" position="bottom">Eintrag löschen</ion-button>
+
+</ion-content>

@@ -10,6 +10,7 @@ import { ModalController } from '@ionic/angular';
 import { CreateEntryComponent } from './create-entry/create-entry.component';
 import { Months } from 'src/app/models/months.model';
 import * as moment from 'moment';
+import { UpdateEntryComponent } from './update-entry/update-entry.component';
 
 @Component({
   selector: 'app-home',
@@ -43,9 +44,20 @@ export class HomePage implements OnInit {
     }));
   }
 
-  async presentModal() {
+  public async presentCreateModal() {
     const modal = await this.modalController.create({
       component: CreateEntryComponent
+    });
+    return await modal.present();
+  }
+
+  public async presentUpdateModal(entry: Entry) {
+    console.log(entry);
+    const modal = await this.modalController.create({
+      component: UpdateEntryComponent,
+      componentProps: {
+        entryToUpdate: entry
+      }
     });
     return await modal.present();
   }
