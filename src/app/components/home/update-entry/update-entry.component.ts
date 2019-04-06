@@ -52,7 +52,7 @@ export class UpdateEntryComponent implements OnInit {
     const alert = await this.alertController.create({
       header: 'Achtung!',
       message: 'Eintrag wirklich löschen?',
-      buttons: [ 
+      buttons: [
         {
           text: 'Nein',
           role: 'cancel'
