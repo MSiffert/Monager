@@ -48,11 +48,14 @@
       <ion-col size="1">
         <ion-icon [name]="getCategoryIconName(entry.category)"></ion-icon>
       </ion-col>
-      <ion-col size="4">
+      <ion-col size="3">
         {{getCategoryInGerman(entry.category)}}
       </ion-col>
       <ion-col size="4">
         {{getDateInSwissFormat(entry.timestamp)}}
+      </ion-col>
+      <ion-col size="1">
+        M
       </ion-col>
       <ion-col size="3" class="table_price">
         {{entry.price}}.-

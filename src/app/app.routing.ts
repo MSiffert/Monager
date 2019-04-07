@@ -1,6 +1,8 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
 
+import { AuthenticationService } from './services/authentication.service';
+
 const routes: Routes = [
   {
     path: '',
@@ -8,12 +10,18 @@ const routes: Routes = [
     pathMatch: 'full'
   },
   {
+    path: 'authenticate',
+    loadChildren: './components/auth/auth.module#AuthModule',
+  },
+  {
     path: 'home',
-    loadChildren: './components/home/home.module#HomePageModule'
+    loadChildren: './components/home/home.module#HomePageModule',
+    canActivate: [AuthenticationService]
   },
   {
     path: 'list',
-    loadChildren: './components/list/list.module#ListPageModule'
+    loadChildren: './components/list/list.module#ListPageModule',
+    canActivate: [AuthenticationService]
   }
 ];
 

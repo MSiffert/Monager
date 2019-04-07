@@ -1,13 +1,13 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="end" (click)="onCancel()">
-      <ion-icon name="close"></ion-icon>
-    </ion-buttons>
-    <ion-title>
-      Eintrag bearbeiten
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
+    <ion-toolbar>
+      <ion-title>Eintrag bearbeiten</ion-title>
+      <ion-buttons slot="secondary" slot="end" (click)="onCancel()">
+        <ion-button>
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
   
 <ion-content>
 
@@ -30,11 +30,10 @@
       <ion-label>Preis</ion-label>
       <ion-input [value]="entryToUpdate.price" placeholder="0.00" type="number" formControlName="price" text-right required></ion-input>
     </ion-item>
-      
-    <ion-button submit expand="block" (click)="onUpdate()" [disabled]="!formGroup.valid" position="bottom">Eintrag aktualisieren</ion-button>
-
   </form>
 
-  <ion-button submit expand="block" color="danger" (click)="onDelete()" position="bottom">Eintrag löschen</ion-button>
-
 </ion-content>
+
+<ion-button submit expand="block" (click)="onUpdate()" [disabled]="!formGroup.valid || (viewState | async) === 4 || (viewState | async) === 5" position="bottom">Eintrag aktualisieren</ion-button>
+<ion-button submit expand="block" color="danger" (click)="onDelete()" position="bottom">Eintrag löschen</ion-button>
+<ion-progress-bar type="indeterminate" *ngIf="(viewState | async) === 4 || (viewState | async) === 5"></ion-progress-bar>

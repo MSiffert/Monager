@@ -1,52 +1,60 @@
 import * as Action from '../actions/entries.actions';
-import { initialEntriesState, EntriesState } from 'src/app/store/entries.state';
+import { initialEntriesState, EntriesState, ViewState } from 'src/app/store/entries.state';
 
 export function entriesReducer(state: EntriesState = initialEntriesState, action: Action.Actions) {
   switch (action.type) {
 
     // GET
     case Action.FETCH:
-      return { ...state, isLoading: true };
+      throwIfAnotherProcessIsInProgress(state);
+      return { ...state, viewState: ViewState.IsFetching };
 
     case Action.FETCH_COMPLETED:
-      return { ...state, isLoading: false, isLoaded: false, entries: action.payload };
+      return { ...state, entries: action.payload, viewState: ViewState.IsSilent };
 
     case Action.FETCH_FAILED:
-      return { ...state, isLoading: false, isLoaded: false };
+      return { ...state, viewState: ViewState.IsFaulted };
 
     // CREATE
     case Action.CREATE:
-      return { ...state, isLoading: true };
+      throwIfAnotherProcessIsInProgress(state);
+      return { ...state, viewState: ViewState.IsCreating };
 
     case Action.CREATE_COMPLETED:
-      const newState = { ...state, isLoading: false };
-      newState.entries.push(action.payload);
-      return newState;
+      return { ...state, viewState: ViewState.IsSilent, entries: [...state.entries, action.payload] };
 
     case Action.CREATE_FAILED:
-      return { ...state, isLoading: false };
+      return { ...state, viewState: ViewState.IsFaulted };
 
     // UPDATE
     case Action.UPDATE:
-      return { ...state, isLoading: true };
+      throwIfAnotherProcessIsInProgress(state);
+      return { ...state, viewState: ViewState.IsUpdating };
 
     case Action.UPDATE_COMPLETED:
-      return { ...state, isLoading: true };
+      return { ...state, viewState: ViewState.IsSilent };
 
     case Action.UPDATE_FAILED:
-      return { ...state, isLoading: true };
+      return { ...state, viewState: ViewState.IsFaulted };
 
     // DELETE
     case Action.DELETE:
-      return { ...state, isLoading: true };
+      throwIfAnotherProcessIsInProgress(state);
+      return { ...state, viewState: ViewState.IsDeleting };
 
     case Action.DELETE_COMPLETED:
-      return { ...state, isLoading: true };
+      return { ...state, viewState: ViewState.IsSilent };
 
     case Action.DELETE_FAILED:
-      return { ...state, isLoading: true };
+      return { ...state, viewState: ViewState.IsFaulted };
 
     default:
       return state;
     }
+}
+
+export function throwIfAnotherProcessIsInProgress(state: EntriesState) {
+  if (state.viewState !== ViewState.IsFaulted && state.viewState !== ViewState.IsSilent) {
+    throw new Error('Cannot dispatch action while another process is in progress.');
+  }
 }

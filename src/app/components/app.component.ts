@@ -13,19 +13,6 @@ import * as EntriesActions from './../store/actions/entries.actions';
   templateUrl: 'app.component.html'
 })
 export class AppComponent implements OnInit {
-  public appPages = [
-    {
-      title: 'Home',
-      url: '/home',
-      icon: 'home'
-    },
-    {
-      title: 'List',
-      url: '/list',
-      icon: 'list'
-    }
-  ];
-
   constructor(
     private platform: Platform,
     private splashScreen: SplashScreen,

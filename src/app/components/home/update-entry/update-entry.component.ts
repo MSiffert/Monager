@@ -8,6 +8,9 @@ import { Category } from 'src/app/models/category.model';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/app.state';
 import * as EntriesActions from './../../../store/actions/entries.actions';
+import { getEntriesState } from 'src/app/store/selectors/state.selectors';
+import { map } from 'rxjs/operators';
+import { ViewState } from 'src/app/store/entries.state';
 
 @Component({
   selector: 'app-update-entry',
@@ -17,6 +20,7 @@ import * as EntriesActions from './../../../store/actions/entries.actions';
 export class UpdateEntryComponent implements OnInit {
 
   @Input() modal: Components.IonModal;
+  public viewState: Observable<ViewState>;
   public entryToUpdate: Entry;
   public formGroup: FormGroup = this.formBuilder.group({
     date: ['', Validators.required],
@@ -33,7 +37,9 @@ export class UpdateEntryComponent implements OnInit {
     this.entryToUpdate = navParams.data.entryToUpdate;
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.viewState = this.store.select(getEntriesState).pipe(map(result => result.viewState));
+  }
 
   public onCancel() {
     this.modal.dismiss('cancel');

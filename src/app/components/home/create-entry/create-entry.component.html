@@ -1,11 +1,11 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="end" (click)="onCancel()">
-      <ion-icon name="close"></ion-icon>
+    <ion-title>Neuer Eintrag</ion-title>
+    <ion-buttons slot="secondary" slot="end" (click)="onCancel()">
+      <ion-button>
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
     </ion-buttons>
-    <ion-title>
-      Neuer Eintrag
-    </ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -31,8 +31,9 @@
       <ion-input placeholder="0.00" type="number" formControlName="price" text-right required></ion-input>
     </ion-item>
       
-    <ion-button submit expand="block" (click)="onCreate()" [disabled]="!formGroup.valid">Eintrag erstellen</ion-button>
-
   </form>
 
 </ion-content>
+
+<ion-button submit expand="block" (click)="onCreate()" [disabled]="!formGroup.valid || (viewState | async) === 3">Eintrag erstellen</ion-button>
+<ion-progress-bar type="indeterminate" *ngIf="(viewState | async) === 3"></ion-progress-bar>

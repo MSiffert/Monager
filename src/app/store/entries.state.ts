@@ -1,13 +1,20 @@
 import { Entry } from '../models/entry.model';
 
+export enum ViewState {
+    IsSilent = 1,
+    IsFetching = 2,
+    IsCreating = 3,
+    IsUpdating = 4,
+    IsDeleting = 5,
+    IsFaulted = 6
+}
+
 export class EntriesState {
     public entries: Entry[];
-    public isLoading: boolean;
-    public isLoaded: boolean;
+    public viewState: ViewState;
 }
 
 export const initialEntriesState: EntriesState = {
     entries: [],
-    isLoading: false,
-    isLoaded: false
+    viewState: ViewState.IsSilent
 };
