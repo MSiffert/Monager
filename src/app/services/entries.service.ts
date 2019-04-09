@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Entry } from '../models/entry.model';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
@@ -6,11 +6,10 @@ import { Storage } from '@ionic/storage';
 
 @Injectable()
 export class EntriesSerivce {
-  private baseUrl = 'https://monager-api.azurewebsites.net';
-
   public constructor(
+    @Inject('API_BASE_URL') private baseUrl: string,
     private httpClient: HttpClient,
-    private storage: Storage
+    private storage: Storage,
   ) { }
 
   public getEntries(): Observable<Entry[]> {

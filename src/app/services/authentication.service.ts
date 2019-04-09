@@ -1,5 +1,5 @@
 // src/app/auth/auth-guard.service.ts
-import { Injectable } from '@angular/core';
+import { Injectable, Inject } from '@angular/core';
 import { Router, CanActivate } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { Credentials } from '../models/credentials.model';
@@ -9,9 +9,8 @@ import { Storage } from '@ionic/storage';
 @Injectable()
 export class AuthenticationService implements CanActivate {
 
-  private baseUrl = 'https://localhost:5001';
-
   constructor(
+    @Inject('API_BASE_URL') private baseUrl: string,
     public router: Router,
     private httpClient: HttpClient,
     private storage: Storage

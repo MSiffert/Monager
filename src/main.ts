@@ -8,5 +8,13 @@ if (environment.production) {
   enableProdMode();
 }
 
-platformBrowserDynamic().bootstrapModule(AppModule)
+export function getApiBaseUrl() {
+  return 'https://monager-api.azurewebsites.net';
+}
+
+const providers = [
+  { provide: 'API_BASE_URL', useFactory: getApiBaseUrl, deps: [] }
+];
+
+platformBrowserDynamic(providers).bootstrapModule(AppModule)
   .catch(err => console.log(err));

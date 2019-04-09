@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
   public entries: Observable<Entry[]>;
   public expenditureMarco: Observable<string>;
   public expenditureChi: Observable<string>;
+  public currentYear: string;
   public currentMonth: string;
   private viewState: Observable<ViewState>;
 
@@ -33,6 +34,7 @@ export class HomePage implements OnInit {
     private toastController: ToastController
   ) {
     this.currentMonth = Months[moment().month()];
+    this.currentYear = moment().year().toString();
   }
 
   ngOnInit(): void {
