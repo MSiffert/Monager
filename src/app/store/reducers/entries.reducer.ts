@@ -55,6 +55,6 @@ export function entriesReducer(state: EntriesState = initialEntriesState, action
 
 export function throwIfAnotherProcessIsInProgress(state: EntriesState) {
   if (state.viewState !== ViewState.IsFaulted && state.viewState !== ViewState.IsSilent) {
-    throw new Error('Cannot dispatch action while another process is in progress.');
+    throw new Error('Cannot dispatch action while another process is in running.');
   }
 }

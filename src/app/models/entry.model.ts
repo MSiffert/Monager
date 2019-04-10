@@ -5,5 +5,6 @@ export class Entry {
   timestamp: Date;
   price: number;
   category: Category;
+  info: string;
   userId: number;
 }

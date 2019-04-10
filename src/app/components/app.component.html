@@ -32,7 +32,7 @@
 
       <ion-footer class="bar-stable">
         <ion-menu-toggle auto-hide="false" vertical="bottom">
-            <ion-item [routerDirection]="'root'" [routerLink]="['/authenticate/logout']">
+            <ion-item (click)="logout()">
               <ion-icon slot="start" [name]="'list'"></ion-icon>
               <ion-label>
                 Ausloggen

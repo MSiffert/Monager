@@ -44,8 +44,8 @@ export class AuthenticationService implements CanActivate {
     return this.httpClient.post<Token>(url, credentials);
   }
 
-  public logout() {
-    this.storage.clear();
+  public async logout() {
+    await this.storage.clear();
   }
 }
 

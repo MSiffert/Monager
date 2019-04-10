@@ -27,6 +27,7 @@ export class CreateEntryComponent implements OnInit {
     date: ['', Validators.required],
     category: ['', Validators.required],
     price: ['', Validators.required],
+    info: [''],
   });
 
   constructor(
@@ -68,7 +69,7 @@ export class CreateEntryComponent implements OnInit {
     entry.timestamp = <Date>this.formGroup.controls['date'].value;
     entry.category = <Category>this.formGroup.controls['category'].value;
     entry.price = <number>this.formGroup.controls['price'].value;
-    entry.userId = 1;
+    entry.info = <string>this.formGroup.controls['info'].value;
 
     return entry;
   }

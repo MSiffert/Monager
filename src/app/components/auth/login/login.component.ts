@@ -23,7 +23,8 @@ export class LoginComponent implements OnInit {
     private storage: Storage
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   public async authenticate() {
     try {

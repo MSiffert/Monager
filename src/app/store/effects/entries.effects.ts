@@ -14,10 +14,10 @@ export class FetchEffect {
     @Effect()
     load = this.actions$.pipe(ofType(Action.FETCH),
         switchMap(state => {
-            return from(this.entriesService.getEntries().pipe(
+            return from(this.entriesService.getEntries()).pipe(
                 map(apiResult => new Action.FetchCompleted(apiResult)),
                 catchError(error => of(new Action.FetchFailed(error)))
-            ));
+            );
         })
     );
 }
@@ -30,7 +30,7 @@ export class CreateEffect {
     load = this.actions$.pipe(ofType<Action.Create>(Action.CREATE),
         map(action => action.payload),
         switchMap(action => {
-            return this.entriesService.createEntry(action).pipe(
+            return from(this.entriesService.createEntry(action)).pipe(
                 map(apiResult => new Action.CreateCompleted(apiResult)),
                 catchError(error => of(new Action.CreateFailed(error)))
             );
@@ -46,7 +46,7 @@ export class UpdateEffect {
     load = this.actions$.pipe(ofType<Action.Update>(Action.UPDATE),
         map(action => action.payload),
         switchMap(action => {
-            return this.entriesService.updateEntry(action).pipe(
+            return from(this.entriesService.updateEntry(action)).pipe(
                 map(apiResult => new Action.UpdateCompleted(apiResult)),
                 catchError(error => of(new Action.UpdateFailed(error)))
             );
@@ -62,7 +62,7 @@ export class DeleteEffect {
     load = this.actions$.pipe(ofType<Action.Delete>(Action.DELETE),
         map(action => action.payload),
         switchMap(action => {
-            return this.entriesService.deleteEntry(action).pipe(
+            return from(this.entriesService.deleteEntry(action)).pipe(
                 map(apiResult => new Action.DeleteCompleted(apiResult)),
                 catchError(error => of(new Action.DeleteFailed(error)))
             );

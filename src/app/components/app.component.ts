@@ -7,6 +7,8 @@ import { Store } from '@ngrx/store';
 
 import { AppState } from '../app.state';
 import * as EntriesActions from './../store/actions/entries.actions';
+import { Router, ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../services/authentication.service';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +19,10 @@ export class AppComponent implements OnInit {
     private platform: Platform,
     private splashScreen: SplashScreen,
     private statusBar: StatusBar,
-    private store: Store<AppState>
+    private store: Store<AppState>,
+    public router: Router,
+    private authenticationService: AuthenticationService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.initializeApp();
   }
@@ -35,5 +40,11 @@ export class AppComponent implements OnInit {
 
   fetchInitialEntries() {
     this.store.dispatch(new EntriesActions.Fetch());
+  }
+
+  public async logout() {
+    console.log('logout');
+    await this.authenticationService.logout();
+    await this.router.navigate(['../login/'], {relativeTo: this.activatedRoute});
   }
 }

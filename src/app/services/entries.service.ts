@@ -12,38 +12,44 @@ export class EntriesSerivce {
     private storage: Storage,
   ) { }
 
-  public getEntries(): Observable<Entry[]> {
+  public async getEntries(): Promise<Entry[]> {
     const url = this.baseUrl + '/api/entries';
-    const headers = this.getAuthorizationHeader();
+    const headers = await this.getAuthorizationHeader();
 
-    return this.httpClient.get<Entry[]>(url, { headers: headers });
+    return this.httpClient.get<Entry[]>(url, headers).toPromise();
   }
 
-  public createEntry(entry: Entry): Observable<Entry> {
+  public async createEntry(entry: Entry): Promise<Entry> {
     const url = this.baseUrl + '/api/entries';
-    return this.httpClient.post<Entry>(url, entry);
+    const headers = await this.getAuthorizationHeader();
+
+    return this.httpClient.post<Entry>(url, entry, headers).toPromise();
   }
 
-  public updateEntry(entry: Entry): Observable<Entry> {
+  public async updateEntry(entry: Entry): Promise<Entry> {
     const url = this.baseUrl + '/api/entries';
-    return this.httpClient.put<Entry>(url, entry);
+    const headers = await this.getAuthorizationHeader();
+
+    return this.httpClient.put<Entry>(url, entry, headers).toPromise();
   }
 
-  public deleteEntry(id: number): Observable<number> {
+  public async deleteEntry(id: number): Promise<number> {
     const url = this.baseUrl + '/api/entries/' + id;
-    const headers = this.getAuthorizationHeader();
+    const headers = await this.getAuthorizationHeader();
 
-    return this.httpClient.delete<number>(url, {
-      headers: headers
-   });
+    return this.httpClient.delete<number>(url, headers).toPromise();
   }
 
-  private getAuthorizationHeader() {
-    const token = this.storage.get('token');
-    const headers = new HttpHeaders();
-    headers.append('Content-Type', 'application/json');
-    headers.append('Authorization', 'Bearer ' + token);
+  private async getAuthorizationHeader() {
+    const token = await this.storage.get('token');
+    let headers = new HttpHeaders();
+    headers = headers.set('Content-Type', 'application/json');
+    headers = headers.set('Authorization', 'Bearer ' + token);
 
-    return headers;
+    const httpOptions = {
+      headers: headers
+    };
+
+    return httpOptions;
   }
 }

@@ -26,11 +26,12 @@ export class UpdateEntryComponent implements OnInit {
     date: ['', Validators.required],
     category: ['', Validators.required],
     price: ['', Validators.required],
+    info: [''],
   });
 
   constructor(
-    private formBuilder: FormBuilder, 
-    private navParams: NavParams, 
+    private formBuilder: FormBuilder,
+    private navParams: NavParams,
     private store: Store<AppState>,
     public alertController: AlertController
   ) {

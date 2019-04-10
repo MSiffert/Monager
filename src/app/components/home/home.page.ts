@@ -112,4 +112,8 @@ export class HomePage implements OnInit {
       return 'pizza';
     }
   }
+
+  public getUserShortNameFromId(id: number) {
+    return id === 1 ? 'M' : 'C';
+  }
 }
